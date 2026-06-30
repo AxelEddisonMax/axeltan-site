@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Axel Tan 狐狸哥</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0c10;
+      --surface: #111318;
+      --surface2: #181c26;
+      --border: #1e2438;
+      --cyan: #4dc8d0;
+      --cyan-dim: #2a8a90;
+      --cyan-glow: rgba(77,200,208,0.10);
+      --text: #dde6f0;
+      --muted: #4a566e;
+      --mono: 'Share Tech Mono', monospace;
+      --sans: 'Inter', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      height: 56px;
+      background: rgba(10,12,16,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--cyan);
+      letter-spacing: 0.06em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0;
+      list-style: none;
+    }
+
+    .nav-links button {
+      background: none;
+      border: none;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 0 1.25rem;
+      height: 56px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .nav-links button:hover { color: var(--text); }
+    .nav-links button.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+
+    /* ── PAGES ── */
+    .page { display: none; min-height: 100vh; }
+    .page.active { display: block; }
+
+    /* ════════════════════════════
+       PAGE 1 — HOME
+    ════════════════════════════ */
+    #page-home {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .home-bg {
+      position: absolute;
+      inset: 0;
+      background: url('bg.png') center center / cover no-repeat;
+      opacity: 0.85;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .home-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(10,12,16,0.15) 0%, rgba(10,12,16,0.55) 55%, rgba(10,12,16,0.97) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .home-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      max-width: 680px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .home-avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 2.5px solid var(--cyan);
+      background: var(--surface2);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 0 32px rgba(77,200,208,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 52px;
+    }
+
+    .home-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .home-name {
+      font-family: var(--sans);
+      font-size: clamp(2.6rem, 8vw, 4.2rem);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      margin-bottom: 0.3rem;
+    }
+
+    .home-chinese {
+      font-family: var(--mono);
+      font-size: 1.1rem;
+      color: var(--cyan);
+      margin-bottom: 0.9rem;
+      letter-spacing: 0.1em;
+    }
+
+    .home-desc {
+      font-size: 15px;
+      color: rgba(221,230,240,0.7);
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 2rem;
+    }
+
+    /* Social link cards */
+    .social-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .social-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 13px 18px;
+      background: rgba(17,19,24,0.82);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s, background 0.2s;
+      backdrop-filter: blur(8px);
+    }
+
+    .social-card:hover {
+      border-color: var(--cyan-dim);
+      background: rgba(77,200,208,0.08);
+    }
+
+    .social-icon-circle {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .social-card-wrap {
+      position: relative;
+    }
+
+    .link-edit-btn {
+      display: none;
+      position: absolute;
+      top: 50%;
+      right: -38px;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 13px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .link-edit-btn.visible { display: flex; }
+    .link-edit-btn:hover { border-color: var(--cyan-dim); color: var(--cyan); }
+
+    @media (max-width: 580px) {
+      .link-edit-btn { right: -4px; top: -10px; transform: none; }
+    }
+    .discord-circle { background: #5865F2; }
+    .linktree-circle { background: #1DB954; }
+    .roblox-circle { background: #e53935; }
+    .facebook-circle { background: #1877F2; }
+    .tiktok-circle { background: #000000; }
+    .instagram-circle { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+
+    .social-info { flex: 1; text-align: left; }
+    .social-platform { font-size: 11px; color: var(--muted); font-family: var(--mono); letter-spacing: 0.06em; }
+    .social-handle { font-size: 14px; font-weight: 500; color: var(--text); }
+
+    /* ════════════════════════════
+       PAGE 2 — ABOUT
+    ════════════════════════════ */
+    #page-about {
+      padding-top: 56px;
+    }
+
+    .about-hero {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 3rem 2rem 2rem;
+    }
+
+    .about-avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 2px solid var(--cyan);
+      background: var(--surface2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .about-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .about-title {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.1;
+    }
+
+    .about-title small {
+      display: block;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--cyan);
+      margin-top: 4px;
+      letter-spacing: 0.06em;
+    }
+
+    .about-body {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* Name cards */
+    .name-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .name-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem 1.25rem;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+
+    .name-card:hover { border-color: var(--cyan-dim); }
+
+    .name-card-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .name-card-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--cyan);
+    }
+
+    /* About.txt editable */
+    .about-txt-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cyan);
+    }
+
+    .section-label::before { content: '// '; color: var(--muted); }
+
+    .edit-btn {
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 4px 12px;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--muted);
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: border-color 0.2s, color 0.2s;
+      display: none;
+    }
+
+    .edit-btn:hover { border-color: var(--cyan-dim); color: var(--cyan); }
+    .edit-btn.visible { display: inline-block; }
+
+    .about-txt-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.75;
+      white-space: pre-wrap;
+      cursor: default;
+      min-height: 120px;
+    }
+
+    .about-txt-box[contenteditable="true"] {
+      border-color: var(--cyan-dim);
+      outline: none;
+      cursor: text;
+    }
+
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .stat-cell {
+      background: var(--surface);
+      padding: 1.1rem 1.25rem;
+    }
+
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .stat-val {
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--cyan);
+    }
+
+    /* Games */
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+    }
+
+    .game-card {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.1rem;
+      transition: border-color 0.2s;
+    }
+
+    .game-card:hover { border-color: var(--cyan-dim); }
+
+    .game-name { font-size: 14px; font-weight: 600; color: var(--text); }
+    .game-tag { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    /* Yap section */
+    .yap-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      font-size: 15px;
+      color: rgba(221,230,240,0.8);
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+
+    .yap-box[contenteditable="true"] {
+      border-color: var(--cyan-dim);
+      outline: none;
+      cursor: text;
+    }
+
+    .divider { border: none; border-top: 1px solid var(--border); }
+
+    /* ════════════════════════════
+       PAGE 3 — GALLERY
+    ════════════════════════════ */
+    #page-gallery {
+      padding-top: 56px;
+      max-width: 860px;
+      margin: 0 auto;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      padding-bottom: 4rem;
+    }
+
+    .gallery-title {
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-weight: 900;
+      color: #fff;
+      text-align: center;
+      padding: 3rem 0 2rem;
+      letter-spacing: -0.02em;
+    }
+
+    .gallery-title span { color: var(--cyan); }
+
+    /* Folder buttons */
+    .folder-tabs {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .folder-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 1rem 2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      transition: all 0.2s;
+      min-width: 160px;
+      justify-content: center;
+    }
+
+    .folder-btn .folder-icon { font-size: 22px; }
+
+    .folder-btn:hover {
+      border-color: var(--cyan-dim);
+      color: var(--text);
+      background: var(--surface2);
+    }
+
+    .folder-btn.open {
+      border-color: var(--cyan);
+      color: var(--cyan);
+      background: var(--cyan-glow);
+    }
+
+    /* Gallery grid */
+    .gallery-folder {
+      display: none;
+    }
+
+    .gallery-folder.open {
+      display: block;
+    }
+
+    .gallery-folder-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .gallery-folder-label::before { content: '📁 '; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .gallery-img {
+      aspect-ratio: 1;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .gallery-img:hover {
+      border-color: var(--cyan-dim);
+      transform: scale(1.02);
+    }
+
+    .gallery-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Add image slot — only shown in admin mode */
+    .gallery-add {
+      aspect-ratio: 1;
+      border-radius: 8px;
+      border: 1px dashed var(--border);
+      background: var(--surface);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      cursor: pointer;
+      transition: border-color 0.2s;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+    }
+
+    .gallery-add:hover { border-color: var(--cyan-dim); color: var(--cyan); }
+    .gallery-add.visible { display: flex; }
+    .gallery-add-icon { font-size: 24px; }
+
+    /* Empty state */
+    .gallery-empty {
+      text-align: center;
+      padding: 3rem;
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--muted);
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,12,16,0.94);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox.open { display: flex; }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 24px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: var(--mono);
+    }
+
+    .lightbox-close:hover { color: #fff; }
+
+    /* Admin mode indicator */
+    .admin-bar {
+      display: none;
+      background: rgba(77,200,208,0.08);
+      border: 1px solid var(--cyan-dim);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--cyan);
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.04em;
+      text-align: center;
+    }
+
+    .admin-bar.visible { display: block; }
+
+    /* Admin login modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,12,16,0.88);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      width: 320px;
+      text-align: center;
+    }
+
+    .modal h3 {
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--cyan);
+      margin-bottom: 1rem;
+      letter-spacing: 0.06em;
+    }
+
+    .modal input {
+      width: 100%;
+      padding: 10px 14px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 14px;
+      margin-bottom: 10px;
+      outline: none;
+    }
+
+    .modal input:focus { border-color: var(--cyan-dim); }
+
+    .modal-btns { display: flex; gap: 8px; }
+
+    .modal-btns button {
+      flex: 1;
+      padding: 9px;
+      border-radius: 6px;
+      font-family: var(--mono);
+      font-size: 12px;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      border: 1px solid var(--border);
+      background: none;
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+
+    .modal-btns button.primary {
+      background: var(--cyan);
+      border-color: var(--cyan);
+      color: #0a0c10;
+      font-weight: 600;
+    }
+
+    .modal-btns button:hover:not(.primary) { border-color: var(--cyan-dim); color: var(--text); }
+
+    .modal-err {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: #e05555;
+      margin-bottom: 8px;
+      display: none;
+    }
+
+    /* Nav admin toggle */
+    .admin-toggle {
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 5px 12px;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--muted);
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      transition: all 0.2s;
+    }
+
+    .admin-toggle:hover { border-color: var(--cyan-dim); color: var(--cyan); }
+    .admin-toggle.on { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-glow); }
+
+    /* RESPONSIVE */
+    @media (max-width: 580px) {
+      nav { padding: 0 1rem; }
+      .nav-logo { display: none; }
+      .name-cards { grid-template-columns: 1fr 1fr; }
+      .home-content { padding: 5rem 1.25rem 3rem; }
+      .about-hero, .about-body { padding-left: 1.25rem; padding-right: 1.25rem; }
+      #page-gallery { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .folder-btn { min-width: 130px; padding: 0.9rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">axeltan.exe</div>
+    <ul class="nav-links">
+      <li><button class="active" onclick="goTo('home', this)">home</button></li>
+      <li><button onclick="goTo('about', this)">about</button></li>
+      <li><button onclick="goTo('gallery', this)">gallery</button></li>
+    </ul>
+    <button class="admin-toggle" id="adminToggle" onclick="toggleAdmin()">admin</button>
+  </nav>
+
+  <!-- ADMIN LOGIN MODAL -->
+  <div class="modal-overlay" id="loginModal">
+    <div class="modal">
+      <h3>// admin access</h3>
+      <p class="modal-err" id="loginErr">wrong password</p>
+      <input type="password" id="loginInput" placeholder="enter password" onkeydown="if(event.key==='Enter')doLogin()" />
+      <div class="modal-btns">
+        <button onclick="closeLogin()">cancel</button>
+        <button class="primary" onclick="doLogin()">enter</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDIT LINK MODAL -->
+  <div class="modal-overlay" id="editLinkModal">
+    <div class="modal">
+      <h3>// edit link</h3>
+      <input type="text" id="editLinkHandle" placeholder="display text" />
+      <input type="text" id="editLinkUrl" placeholder="https://..." />
+      <div class="modal-btns">
+        <button onclick="closeEditLink()">cancel</button>
+        <button class="primary" onclick="saveEditLink()">save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <img id="lightboxImg" src="" alt="" />
+  </div>
+
+  <!-- ═══════════ PAGE: HOME ═══════════ -->
+  <div class="page active" id="page-home">
+    <div class="home-bg"></div>
+    <div class="home-overlay"></div>
+    <div class="home-content">
+
+      <div class="home-avatar"><img src="home.png" alt="Axel Tan" /></div>
+
+      <h1 class="home-name">Axel Tan</h1>
+      <div class="home-chinese">狐狸哥</div>
+
+      <p class="home-desc">
+        Cybersecurity student · Blue Fox Fursona · He/Him<br/>
+        From Malaysia 🇲🇾 · Software Engineer · Aquarius ♒
+      </p>
+
+      <div class="social-cards" id="socialCards">
+        <div class="social-card-wrap">
+          <a class="social-card" id="link-discord" href="https://discord.gg/mDkd5TjB28" target="_blank" rel="noopener">
+            <div class="social-icon-circle discord-circle">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.101 18.081.119 18.104.141 18.12a19.916 19.916 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/>
+              </svg>
+            </div>
+            <div class="social-info">
+              <div class="social-platform">discord</div>
+              <div class="social-handle" id="handle-discord">_axeltan</div>
+            </div>
+          </a>
+          <button class="link-edit-btn" onclick="editLink('discord')">✎</button>
+        </div>
+
+        <div class="social-card-wrap">
+          <a class="social-card" id="link-facebook" href="https://www.facebook.com/AxelFurrylover" target="_blank" rel="noopener">
+            <div class="social-icon-circle facebook-circle">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22 12.06C22 6.505 17.523 2 12 2S2 6.505 2 12.06c0 5.022 3.657 9.184 8.438 9.94v-7.03H7.898v-2.91h2.54V9.845c0-2.507 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562v1.875h2.773l-.443 2.91h-2.33V22c4.78-.756 8.437-4.918 8.437-9.94z"/>
+              </svg>
+            </div>
+            <div class="social-info">
+              <div class="social-platform">facebook</div>
+              <div class="social-handle" id="handle-facebook">AxelFurrylover</div>
+            </div>
+          </a>
+          <button class="link-edit-btn" onclick="editLink('facebook')">✎</button>
+        </div>
+
+        <div class="social-card-wrap">
+          <a class="social-card" id="link-tiktok" href="https://www.tiktok.com/@presidentjackies" target="_blank" rel="noopener">
+            <div class="social-icon-circle tiktok-circle">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48z"/>
+              </svg>
+            </div>
+            <div class="social-info">
+              <div class="social-platform">tiktok</div>
+              <div class="social-handle" id="handle-tiktok">@presidentjackies</div>
+            </div>
+          </a>
+          <button class="link-edit-btn" onclick="editLink('tiktok')">✎</button>
+        </div>
+
+        <div class="social-card-wrap">
+          <a class="social-card" id="link-roblox" href="https://www.roblox.com/users/1108341430/profile" target="_blank" rel="noopener">
+            <div class="social-icon-circle roblox-circle">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4.678 22.003 2 4.445l17.322-2.448L22 19.555 4.678 22.003zm6.114-9.187 1.93-.273-.275-1.932-1.931.273.276 1.932zm2.8-1.95 1.93-.274-.275-1.932-1.93.273.275 1.932z"/>
+              </svg>
+            </div>
+            <div class="social-info">
+              <div class="social-platform">roblox</div>
+              <div class="social-handle" id="handle-roblox">profile / 1108341430</div>
+            </div>
+          </a>
+          <button class="link-edit-btn" onclick="editLink('roblox')">✎</button>
+        </div>
+
+        <div class="social-card-wrap">
+          <a class="social-card" id="link-instagram" href="https://www.instagram.com/axel_tanyz/?hl=en" target="_blank" rel="noopener">
+            <div class="social-icon-circle instagram-circle">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0 5.838a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm6.406-.617a1.44 1.44 0 1 0-2.88 0 1.44 1.44 0 0 0 2.88 0z"/>
+              </svg>
+            </div>
+            <div class="social-info">
+              <div class="social-platform">instagram</div>
+              <div class="social-handle" id="handle-instagram">@axel_tanyz</div>
+            </div>
+          </a>
+          <button class="link-edit-btn" onclick="editLink('instagram')">✎</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ PAGE: ABOUT ═══════════ -->
+  <div class="page" id="page-about">
+    <div class="about-hero">
+      <div class="about-avatar"><img src="about.jpg" alt="Axel Tan" /></div>
+      <div>
+        <div class="about-title">
+          Axel Tan
+          <small>he/him · blue fox · 🇲🇾 malaysia</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-body">
+
+      <!-- Name cards -->
+      <div>
+        <div class="section-label" style="margin-bottom:.75rem">identity</div>
+        <div class="name-cards" id="nameCards">
+          <div class="name-card">
+            <div class="name-card-label">english</div>
+            <div class="name-card-value">Axel Tan</div>
+          </div>
+          <div class="name-card">
+            <div class="name-card-label">chinese</div>
+            <div class="name-card-value">狐狸哥</div>
+          </div>
+          <div class="name-card">
+            <div class="name-card-label">fursona</div>
+            <div class="name-card-value">Fox</div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- About.txt editable -->
+      <div>
+        <div class="about-txt-header">
+          <div class="section-label">about.txt</div>
+          <div style="display:flex;gap:8px">
+            <button class="edit-btn" id="editAboutBtn" onclick="toggleEdit('aboutTxt','editAboutBtn','saveAboutBtn')">edit</button>
+            <button class="edit-btn" id="saveAboutBtn" style="display:none" onclick="saveEdit('aboutTxt','editAboutBtn','saveAboutBtn')">save</button>
+          </div>
+        </div>
+        <div class="about-txt-box" id="aboutTxt" contenteditable="false">Cybersecurity student who also happens to be a blue fox.
+I love hacking (the legal kind), drawing, and spending way too much time on Roblox.
+Malaysian 🇲🇾 · Aquarius ♒ · 186cm · Software Engineer in progress.
+Always down to talk tech, games, or furry stuff — just add me on Discord!</div>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- Stats -->
+      <div>
+        <div class="section-label" style="margin-bottom:.75rem">data.json</div>
+        <div class="stats-grid">
+          <div class="stat-cell"><div class="stat-label">species</div><div class="stat-val">Fox</div></div>
+          <div class="stat-cell"><div class="stat-label">pronouns</div><div class="stat-val">he/him</div></div>
+          <div class="stat-cell"><div class="stat-label">origin</div><div class="stat-val">MY 🇲🇾</div></div>
+          <div class="stat-cell"><div class="stat-label">sign</div><div class="stat-val">Aquarius ♒</div></div>
+          <div class="stat-cell"><div class="stat-label">fav drink</div><div class="stat-val">Iced Coffee</div></div>
+          <div class="stat-cell"><div class="stat-label">fav food</div><div class="stat-val">Nasi Lemak</div></div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- Currently playing -->
+      <div>
+        <div class="section-label" style="margin-bottom:.75rem">currently playing</div>
+        <div class="games-grid">
+          <div class="game-card"><div class="game-name">Violence District</div><div class="game-tag">Roblox</div></div>
+          <div class="game-card"><div class="game-name">Operation One</div><div class="game-tag">Roblox</div></div>
+          <div class="game-card"><div class="game-name">Rainbow Six Siege</div><div class="game-tag">Tactical FPS</div></div>
+          <div class="game-card"><div class="game-name">Ready or Not</div><div class="game-tag">Tactical FPS</div></div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- Yap section -->
+      <div>
+        <div class="about-txt-header">
+          <div class="section-label">yapping.exe</div>
+          <div style="display:flex;gap:8px">
+            <button class="edit-btn" id="editYapBtn" onclick="toggleEdit('yapBox','editYapBtn','saveYapBtn')">edit</button>
+            <button class="edit-btn" id="saveYapBtn" style="display:none" onclick="saveEdit('yapBox','editYapBtn','saveYapBtn')">save</button>
+          </div>
+        </div>
+        <div class="yap-box" id="yapBox" contenteditable="false">Okay so real talk — I got into cybersecurity because I thought hacking was cool (it still is).
+Now I'm actually studying it and it turns out there's a LOT of math involved. Worth it though.
+
+Outside of that I draw my fursona too much, play tactical shooters with questionable aim,
+and I'm convinced Minesweeper is a skill issue and not luck.
+
+If you're reading this, hi. You found the yap section. Congrats.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════ PAGE: GALLERY ═══════════ -->
+  <div class="page" id="page-gallery">
+
+    <h1 class="gallery-title">Axel <span>Gallery</span></h1>
+
+    <div class="admin-bar" id="galleryAdminBar">✦ admin mode — you can add images to the gallery</div>
+
+    <div class="folder-tabs">
+      <button class="folder-btn" id="btn-fursuit" onclick="openFolder('fursuit')">
+        <span class="folder-icon">📁</span> fursuit
+      </button>
+      <button class="folder-btn" id="btn-art" onclick="openFolder('art')">
+        <span class="folder-icon">📁</span> my art
+      </button>
+    </div>
+
+    <!-- Fursuit folder -->
+    <div class="gallery-folder" id="folder-fursuit">
+      <div class="gallery-folder-label">fursuit photos</div>
+      <div class="gallery-grid" id="grid-fursuit">
+        <div class="gallery-add visible" id="add-fursuit" onclick="addImage('fursuit')">
+          <div class="gallery-add-icon">+</div>
+          <div>add image</div>
+        </div>
+        <div class="gallery-empty" id="empty-fursuit" style="grid-column:1/-1">
+          no fursuit photos yet — add some above!
+        </div>
+      </div>
+    </div>
+
+    <!-- Art folder -->
+    <div class="gallery-folder" id="folder-art">
+      <div class="gallery-folder-label">my art</div>
+      <div class="gallery-grid" id="grid-art">
+        <div class="gallery-add visible" id="add-art" onclick="addImage('art')">
+          <div class="gallery-add-icon">+</div>
+          <div>add image</div>
+        </div>
+        <div class="gallery-empty" id="empty-art" style="grid-column:1/-1">
+          no art uploaded yet — add some above!
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // ── Password (change this!) ──
+    const ADMIN_PASS = 'axelfox2024';
+    let isAdmin = false;
+    let currentFolder = null;
+
+    // ── Gallery data stored in memory (admin can add images) ──
+    const gallery = { fursuit: [], art: [] };
+
+    // ── Navigation ──
+    function goTo(page, btn) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+      document.getElementById('page-' + page).classList.add('active');
+      if (btn) btn.classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    // ── Admin toggle ──
+    function toggleAdmin() {
+      if (isAdmin) {
+        logoutAdmin();
+      } else {
+        document.getElementById('loginModal').classList.add('open');
+        setTimeout(() => document.getElementById('loginInput').focus(), 100);
+      }
+    }
+
+    function doLogin() {
+      const pw = document.getElementById('loginInput').value;
+      if (pw === ADMIN_PASS) {
+        isAdmin = true;
+        document.getElementById('loginModal').classList.remove('open');
+        document.getElementById('loginInput').value = '';
+        document.getElementById('loginErr').style.display = 'none';
+        document.getElementById('adminToggle').classList.add('on');
+        document.getElementById('adminToggle').textContent = 'logout';
+        document.getElementById('galleryAdminBar').classList.add('visible');
+        // Show edit buttons
+        document.querySelectorAll('.edit-btn').forEach(b => b.classList.add('visible'));
+        // Show add buttons
+        document.querySelectorAll('.gallery-add').forEach(b => b.classList.add('visible'));
+        // Show link edit buttons
+        document.querySelectorAll('.link-edit-btn').forEach(b => b.classList.add('visible'));
+      } else {
+        document.getElementById('loginErr').style.display = 'block';
+        document.getElementById('loginInput').value = '';
+        document.getElementById('loginInput').focus();
+      }
+    }
+
+    function closeLogin() {
+      document.getElementById('loginModal').classList.remove('open');
+      document.getElementById('loginInput').value = '';
+      document.getElementById('loginErr').style.display = 'none';
+    }
+
+    function logoutAdmin() {
+      isAdmin = false;
+      document.getElementById('adminToggle').classList.remove('on');
+      document.getElementById('adminToggle').textContent = 'admin';
+      document.getElementById('galleryAdminBar').classList.remove('visible');
+      document.querySelectorAll('.edit-btn').forEach(b => b.classList.remove('visible'));
+      document.querySelectorAll('.gallery-add').forEach(b => b.classList.remove('visible'));
+      document.querySelectorAll('.link-edit-btn').forEach(b => b.classList.remove('visible'));
+      // Lock all editable boxes
+      document.querySelectorAll('[contenteditable="true"]').forEach(el => {
+        el.contentEditable = 'false';
+      });
+      document.getElementById('saveAboutBtn').style.display = 'none';
+      document.getElementById('saveYapBtn').style.display = 'none';
+      document.getElementById('editAboutBtn').textContent = 'edit';
+      document.getElementById('editYapBtn').textContent = 'edit';
+    }
+
+    // ── About.txt editable ──
+    function toggleEdit(boxId, editBtnId, saveBtnId) {
+      const box = document.getElementById(boxId);
+      const editBtn = document.getElementById(editBtnId);
+      const saveBtn = document.getElementById(saveBtnId);
+      box.contentEditable = 'true';
+      box.focus();
+      editBtn.style.display = 'none';
+      saveBtn.style.display = 'inline-block';
+    }
+
+    function saveEdit(boxId, editBtnId, saveBtnId) {
+      const box = document.getElementById(boxId);
+      const editBtn = document.getElementById(editBtnId);
+      const saveBtn = document.getElementById(saveBtnId);
+      box.contentEditable = 'false';
+      editBtn.style.display = 'inline-block';
+      saveBtn.style.display = 'none';
+    }
+
+    // ── Edit social links ──
+    let editingLinkKey = null;
+
+    function editLink(key) {
+      if (!isAdmin) return;
+      editingLinkKey = key;
+      const a = document.getElementById('link-' + key);
+      const handle = document.getElementById('handle-' + key);
+      document.getElementById('editLinkHandle').value = handle.textContent;
+      document.getElementById('editLinkUrl').value = a.getAttribute('href');
+      document.getElementById('editLinkModal').classList.add('open');
+    }
+
+    function closeEditLink() {
+      document.getElementById('editLinkModal').classList.remove('open');
+      editingLinkKey = null;
+    }
+
+    function saveEditLink() {
+      if (!editingLinkKey) return;
+      const a = document.getElementById('link-' + editingLinkKey);
+      const handle = document.getElementById('handle-' + editingLinkKey);
+      const newHandle = document.getElementById('editLinkHandle').value.trim();
+      const newUrl = document.getElementById('editLinkUrl').value.trim();
+      if (newHandle) handle.textContent = newHandle;
+      if (newUrl) a.setAttribute('href', newUrl);
+      closeEditLink();
+    }
+
+    // ── Gallery folders ──
+    function openFolder(name) {
+      if (currentFolder === name) {
+        // close
+        document.getElementById('folder-' + name).classList.remove('open');
+        document.getElementById('btn-' + name).classList.remove('open');
+        currentFolder = null;
+        return;
+      }
+      if (currentFolder) {
+        document.getElementById('folder-' + currentFolder).classList.remove('open');
+        document.getElementById('btn-' + currentFolder).classList.remove('open');
+      }
+      document.getElementById('folder-' + name).classList.add('open');
+      document.getElementById('btn-' + name).classList.add('open');
+      currentFolder = name;
+    }
+
+    // ── Add image to gallery ──
+    function addImage(folder) {
+      if (!isAdmin) return;
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      input.multiple = true;
+      input.onchange = function () {
+        Array.from(input.files).forEach(file => {
+          const url = URL.createObjectURL(file);
+          gallery[folder].push(url);
+          renderGallery(folder);
+        });
+      };
+      input.click();
+    }
+
+    function renderGallery(folder) {
+      const grid = document.getElementById('grid-' + folder);
+      const empty = document.getElementById('empty-' + folder);
+      const addSlot = document.getElementById('add-' + folder);
+
+      // Remove old images
+      grid.querySelectorAll('.gallery-img').forEach(el => el.remove());
+
+      if (gallery[folder].length === 0) {
+        empty.style.display = 'block';
+      } else {
+        empty.style.display = 'none';
+        gallery[folder].forEach((url, i) => {
+          const div = document.createElement('div');
+          div.className = 'gallery-img';
+          div.onclick = () => openLightbox(url);
+          const img = document.createElement('img');
+          img.src = url;
+          img.alt = folder + ' image ' + (i + 1);
+          div.appendChild(img);
+          grid.insertBefore(div, addSlot);
+        });
+      }
+
+      // Keep add slot visibility in sync with admin state
+      if (isAdmin) addSlot.classList.add('visible');
+    }
+
+    // ── Lightbox ──
+    function openLightbox(url) {
+      document.getElementById('lightboxImg').src = url;
+      document.getElementById('lightbox').classList.add('open');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        closeLightbox();
+        closeLogin();
+        closeEditLink();
+      }
+    });
+  </script>
+</body>
+</html>
