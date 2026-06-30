@@ -770,7 +770,6 @@
       <li><button onclick="goTo('about', this)">about</button></li>
       <li><button onclick="goTo('gallery', this)">gallery</button></li>
     </ul>
-    <button class="admin-toggle" id="adminToggle" onclick="toggleAdmin()">admin</button>
   </nav>
 
   <!-- ADMIN LOGIN MODAL -->
@@ -782,19 +781,6 @@
       <div class="modal-btns">
         <button onclick="closeLogin()">cancel</button>
         <button class="primary" onclick="doLogin()">enter</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- EDIT LINK MODAL -->
-  <div class="modal-overlay" id="editLinkModal">
-    <div class="modal">
-      <h3>// edit link</h3>
-      <input type="text" id="editLinkHandle" placeholder="display text" />
-      <input type="text" id="editLinkUrl" placeholder="https://..." />
-      <div class="modal-btns">
-        <button onclick="closeEditLink()">cancel</button>
-        <button class="primary" onclick="saveEditLink()">save</button>
       </div>
     </div>
   </div>
@@ -817,8 +803,8 @@
       <div class="home-chinese">狐狸哥</div>
 
       <p class="home-desc">
-         Swimming Instructor · Blue Fox Fursona · He/Him<br/>
-         From Malaysia 🇲🇾 · Foundation in computing Student · Aquarius ♒
+        Swimming Instructor · Blue Fox Fursona · He/Him<br/>
+        From Malaysia 🇲🇾 · Foundation in Computing · Aquarius ♒
       </p>
 
       <div class="social-cards" id="socialCards">
@@ -834,7 +820,7 @@
               <div class="social-handle" id="handle-discord">_axeltan</div>
             </div>
           </a>
-          <button class="link-edit-btn" onclick="editLink('discord')">✎</button>
+          
         </div>
 
         <div class="social-card-wrap">
@@ -849,7 +835,7 @@
               <div class="social-handle" id="handle-facebook">AxelFurrylover</div>
             </div>
           </a>
-          <button class="link-edit-btn" onclick="editLink('facebook')">✎</button>
+          
         </div>
 
         <div class="social-card-wrap">
@@ -864,7 +850,7 @@
               <div class="social-handle" id="handle-tiktok">@presidentjackies</div>
             </div>
           </a>
-          <button class="link-edit-btn" onclick="editLink('tiktok')">✎</button>
+          
         </div>
 
         <div class="social-card-wrap">
@@ -879,7 +865,7 @@
               <div class="social-handle" id="handle-roblox">profile / 1108341430</div>
             </div>
           </a>
-          <button class="link-edit-btn" onclick="editLink('roblox')">✎</button>
+          
         </div>
 
         <div class="social-card-wrap">
@@ -894,7 +880,7 @@
               <div class="social-handle" id="handle-instagram">@axel_tanyz</div>
             </div>
           </a>
-          <button class="link-edit-btn" onclick="editLink('instagram')">✎</button>
+          
         </div>
       </div>
 
@@ -940,15 +926,11 @@
       <div>
         <div class="about-txt-header">
           <div class="section-label">about.txt</div>
-          <div style="display:flex;gap:8px">
-            <button class="edit-btn" id="editAboutBtn" onclick="toggleEdit('aboutTxt','editAboutBtn','saveAboutBtn')">edit</button>
-            <button class="edit-btn" id="saveAboutBtn" style="display:none" onclick="saveEdit('aboutTxt','editAboutBtn','saveAboutBtn')">save</button>
-          </div>
         </div>
-        <div class="about-txt-box" id="aboutTxt" contenteditable="false">Cybersecurity student who also happens to be a blue fox.
-I love hacking (the legal kind), drawing, and spending way too much time on Roblox.
-Malaysian 🇲🇾 · Aquarius ♒ · 186cm · Foundation in computing student.
-Always down to talk tech, games, or furry stuff — just add me on Discord!</div>
+        <div class="about-txt-box" id="aboutTxt">Hello I'm Axel, an IT student who love coding and create something.
+I play roblox and rainbow 6 when I am bored, I love to play game with friends, make tiktok video together wearing fursuit.
+I also a fursuiter, who make video and live stream. My live on tiktok is every Friday 11pm to 1am.
+        </div>
       </div>
 
       <hr class="divider" />
@@ -985,18 +967,20 @@ Always down to talk tech, games, or furry stuff — just add me on Discord!</div
       <div>
         <div class="about-txt-header">
           <div class="section-label">yapping.exe</div>
-          <div style="display:flex;gap:8px">
-            <button class="edit-btn" id="editYapBtn" onclick="toggleEdit('yapBox','editYapBtn','saveYapBtn')">edit</button>
-            <button class="edit-btn" id="saveYapBtn" style="display:none" onclick="saveEdit('yapBox','editYapBtn','saveYapBtn')">save</button>
-          </div>
         </div>
-        <div class="yap-box" id="yapBox" contenteditable="false">Okay so real talk — I got into cybersecurity because I thought hacking was cool (it still is).
-Now I'm actually studying it and it turns out there's a LOT of math involved. Worth it though.
-
-Outside of that I draw my fursona too much, play tactical shooters with questionable aim,
-and I'm convinced Minesweeper is a skill issue and not luck.
-
-If you're reading this, hi. You found the yap section. Congrats.</div>
+        <div class="yap-box" id="yapBox">Axel love making new friends. My hobby is swimming, playing games, coding, bowling, hangouts and make video with friends
+Axel also have boundaries when making friends:
+1. Axel hates being threatening and blackmail
+2. Axel doesn't like talk much nsfw 18+ (Rarely)
+3. Axel hates desire over love
+4. Axel hates open relationship or polysexual relationship
+5. Axel hates being ignore when more than 3 people talking
+6. Axel hates don't like not loyalty person
+7. Axel hates liar 
+8. Axel stay neutral between some communication topics
+9. Axel love to yap and listen 
+10. Axel is open-minded person 
+        </div>
       </div>
 
     </div>
@@ -1007,8 +991,6 @@ If you're reading this, hi. You found the yap section. Congrats.</div>
 
     <h1 class="gallery-title">Axel <span>Gallery</span></h1>
 
-    <div class="admin-bar" id="galleryAdminBar">✦ admin mode — you can add images to the gallery</div>
-
     <div class="folder-tabs">
       <button class="folder-btn" id="btn-fursuit" onclick="openFolder('fursuit')">
         <span class="folder-icon">📁</span> fursuit
@@ -1018,31 +1000,49 @@ If you're reading this, hi. You found the yap section. Congrats.</div>
       </button>
     </div>
 
-    <!-- Fursuit folder -->
+    <!-- Fursuit folder — EDIT IMAGE FILENAMES BELOW -->
     <div class="gallery-folder" id="folder-fursuit">
       <div class="gallery-folder-label">fursuit photos</div>
-      <div class="gallery-grid" id="grid-fursuit">
-        <div class="gallery-add visible" id="add-fursuit" onclick="addImage('fursuit')">
-          <div class="gallery-add-icon">+</div>
-          <div>add image</div>
-        </div>
-        <div class="gallery-empty" id="empty-fursuit" style="grid-column:1/-1">
-          no fursuit photos yet — add some above!
-        </div>
+      <div class="gallery-grid">
+        <div class="gallery-img" onclick="openLightbox('fursuit1.jpg')"><img src="fursuit1.jpg" alt="fursuit 1" /></div>
+        <div class="gallery-img" onclick="openLightbox('fursuit2.jpg')"><img src="fursuit2.jpg" alt="fursuit 2" /></div>
+        <div class="gallery-img" onclick="openLightbox('fursuit3.jpg')"><img src="fursuit3.jpg" alt="fursuit 3" /></div>
+        <div class="gallery-img" onclick="openLightbox('fursuit4.jpg')"><img src="fursuit4.jpg" alt="fursuit 4" /></div>
+        <div class="gallery-img" onclick="openLightbox('fursuit5.jpg')"><img src="fursuit5.jpg" alt="fursuit 5" /></div>
+        <div class="gallery-img" onclick="openLightbox('fursuit6.jpg')"><img src="fursuit6.jpg" alt="fursuit 6" /></div>
       </div>
     </div>
 
-    <!-- Art folder -->
+    <!-- Art folder — EDIT IMAGE FILENAMES BELOW -->
     <div class="gallery-folder" id="folder-art">
       <div class="gallery-folder-label">my art</div>
-      <div class="gallery-grid" id="grid-art">
-        <div class="gallery-add visible" id="add-art" onclick="addImage('art')">
-          <div class="gallery-add-icon">+</div>
-          <div>add image</div>
-        </div>
-        <div class="gallery-empty" id="empty-art" style="grid-column:1/-1">
-          no art uploaded yet — add some above!
-        </div>
+      <div class="gallery-grid">
+        <div class="gallery-img" onclick="openLightbox('art1.jpg')"><img src="art1.jpg" alt="art 1" /></div>
+        <div class="gallery-img" onclick="openLightbox('art2.jpg')"><img src="art2.jpg" alt="art 2" /></div>
+        <div class="gallery-img" onclick="openLightbox('art3.jpg')"><img src="art3.jpg" alt="art 3" /></div>
+        <div class="gallery-img" onclick="openLightbox('art4.jpg')"><img src="art4.jpg" alt="art 4" /></div>
+        <div class="gallery-img" onclick="openLightbox('art5.jpg')"><img src="art5.jpg" alt="art 5" /></div>
+        <div class="gallery-img" onclick="openLightbox('art6.jpg')"><img src="art6.jpg" alt="art 6" /></div>
+      </div>
+    </div>
+
+    <!-- Admin trigger -->
+    <div style="text-align:center; margin-top: 3rem;">
+      <button class="admin-toggle" onclick="toggleAdmin()" id="adminToggle">admin</button>
+    </div>
+
+    <!-- Private gallery — only visible after correct password -->
+    <div class="gallery-folder" id="folder-private" style="margin-top: 2rem;">
+      <div class="admin-bar visible" style="margin-bottom: 1.5rem;">🔒 private gallery — only you can see this</div>
+      <div class="gallery-folder-label">private stash</div>
+      <!-- EDIT IMAGE FILENAMES BELOW -->
+      <div class="gallery-grid">
+        <div class="gallery-img" onclick="openLightbox('private1.jpg')"><img src="private1.jpg" alt="private 1" /></div>
+        <div class="gallery-img" onclick="openLightbox('private2.jpg')"><img src="private2.jpg" alt="private 2" /></div>
+        <div class="gallery-img" onclick="openLightbox('private3.jpg')"><img src="private3.jpg" alt="private 3" /></div>
+        <div class="gallery-img" onclick="openLightbox('private4.jpg')"><img src="private4.jpg" alt="private 4" /></div>
+        <div class="gallery-img" onclick="openLightbox('private5.jpg')"><img src="private5.jpg" alt="private 5" /></div>
+        <div class="gallery-img" onclick="openLightbox('private6.jpg')"><img src="private6.jpg" alt="private 6" /></div>
       </div>
     </div>
 
@@ -1054,9 +1054,6 @@ If you're reading this, hi. You found the yap section. Congrats.</div>
     let isAdmin = false;
     let currentFolder = null;
 
-    // ── Gallery data stored in memory (admin can add images) ──
-    const gallery = { fursuit: [], art: [] };
-
     // ── Navigation ──
     function goTo(page, btn) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -1066,7 +1063,7 @@ If you're reading this, hi. You found the yap section. Congrats.</div>
       window.scrollTo(0, 0);
     }
 
-    // ── Admin toggle ──
+    // ── Admin toggle (only unlocks private gallery, nothing else) ──
     function toggleAdmin() {
       if (isAdmin) {
         logoutAdmin();
@@ -1085,13 +1082,8 @@ If you're reading this, hi. You found the yap section. Congrats.</div>
         document.getElementById('loginErr').style.display = 'none';
         document.getElementById('adminToggle').classList.add('on');
         document.getElementById('adminToggle').textContent = 'logout';
-        document.getElementById('galleryAdminBar').classList.add('visible');
-        // Show edit buttons
-        document.querySelectorAll('.edit-btn').forEach(b => b.classList.add('visible'));
-        // Show add buttons
-        document.querySelectorAll('.gallery-add').forEach(b => b.classList.add('visible'));
-        // Show link edit buttons
-        document.querySelectorAll('.link-edit-btn').forEach(b => b.classList.add('visible'));
+        document.getElementById('folder-private').classList.add('open');
+        document.getElementById('folder-private').scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
         document.getElementById('loginErr').style.display = 'block';
         document.getElementById('loginInput').value = '';
@@ -1109,73 +1101,12 @@ If you're reading this, hi. You found the yap section. Congrats.</div>
       isAdmin = false;
       document.getElementById('adminToggle').classList.remove('on');
       document.getElementById('adminToggle').textContent = 'admin';
-      document.getElementById('galleryAdminBar').classList.remove('visible');
-      document.querySelectorAll('.edit-btn').forEach(b => b.classList.remove('visible'));
-      document.querySelectorAll('.gallery-add').forEach(b => b.classList.remove('visible'));
-      document.querySelectorAll('.link-edit-btn').forEach(b => b.classList.remove('visible'));
-      // Lock all editable boxes
-      document.querySelectorAll('[contenteditable="true"]').forEach(el => {
-        el.contentEditable = 'false';
-      });
-      document.getElementById('saveAboutBtn').style.display = 'none';
-      document.getElementById('saveYapBtn').style.display = 'none';
-      document.getElementById('editAboutBtn').textContent = 'edit';
-      document.getElementById('editYapBtn').textContent = 'edit';
+      document.getElementById('folder-private').classList.remove('open');
     }
 
-    // ── About.txt editable ──
-    function toggleEdit(boxId, editBtnId, saveBtnId) {
-      const box = document.getElementById(boxId);
-      const editBtn = document.getElementById(editBtnId);
-      const saveBtn = document.getElementById(saveBtnId);
-      box.contentEditable = 'true';
-      box.focus();
-      editBtn.style.display = 'none';
-      saveBtn.style.display = 'inline-block';
-    }
-
-    function saveEdit(boxId, editBtnId, saveBtnId) {
-      const box = document.getElementById(boxId);
-      const editBtn = document.getElementById(editBtnId);
-      const saveBtn = document.getElementById(saveBtnId);
-      box.contentEditable = 'false';
-      editBtn.style.display = 'inline-block';
-      saveBtn.style.display = 'none';
-    }
-
-    // ── Edit social links ──
-    let editingLinkKey = null;
-
-    function editLink(key) {
-      if (!isAdmin) return;
-      editingLinkKey = key;
-      const a = document.getElementById('link-' + key);
-      const handle = document.getElementById('handle-' + key);
-      document.getElementById('editLinkHandle').value = handle.textContent;
-      document.getElementById('editLinkUrl').value = a.getAttribute('href');
-      document.getElementById('editLinkModal').classList.add('open');
-    }
-
-    function closeEditLink() {
-      document.getElementById('editLinkModal').classList.remove('open');
-      editingLinkKey = null;
-    }
-
-    function saveEditLink() {
-      if (!editingLinkKey) return;
-      const a = document.getElementById('link-' + editingLinkKey);
-      const handle = document.getElementById('handle-' + editingLinkKey);
-      const newHandle = document.getElementById('editLinkHandle').value.trim();
-      const newUrl = document.getElementById('editLinkUrl').value.trim();
-      if (newHandle) handle.textContent = newHandle;
-      if (newUrl) a.setAttribute('href', newUrl);
-      closeEditLink();
-    }
-
-    // ── Gallery folders ──
+    // ── Gallery folders (public fursuit / art tabs) ──
     function openFolder(name) {
       if (currentFolder === name) {
-        // close
         document.getElementById('folder-' + name).classList.remove('open');
         document.getElementById('btn-' + name).classList.remove('open');
         currentFolder = null;
@@ -1190,54 +1121,9 @@ If you're reading this, hi. You found the yap section. Congrats.</div>
       currentFolder = name;
     }
 
-    // ── Add image to gallery ──
-    function addImage(folder) {
-      if (!isAdmin) return;
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = 'image/*';
-      input.multiple = true;
-      input.onchange = function () {
-        Array.from(input.files).forEach(file => {
-          const url = URL.createObjectURL(file);
-          gallery[folder].push(url);
-          renderGallery(folder);
-        });
-      };
-      input.click();
-    }
-
-    function renderGallery(folder) {
-      const grid = document.getElementById('grid-' + folder);
-      const empty = document.getElementById('empty-' + folder);
-      const addSlot = document.getElementById('add-' + folder);
-
-      // Remove old images
-      grid.querySelectorAll('.gallery-img').forEach(el => el.remove());
-
-      if (gallery[folder].length === 0) {
-        empty.style.display = 'block';
-      } else {
-        empty.style.display = 'none';
-        gallery[folder].forEach((url, i) => {
-          const div = document.createElement('div');
-          div.className = 'gallery-img';
-          div.onclick = () => openLightbox(url);
-          const img = document.createElement('img');
-          img.src = url;
-          img.alt = folder + ' image ' + (i + 1);
-          div.appendChild(img);
-          grid.insertBefore(div, addSlot);
-        });
-      }
-
-      // Keep add slot visibility in sync with admin state
-      if (isAdmin) addSlot.classList.add('visible');
-    }
-
     // ── Lightbox ──
-    function openLightbox(url) {
-      document.getElementById('lightboxImg').src = url;
+    function openLightbox(src) {
+      document.getElementById('lightboxImg').src = src;
       document.getElementById('lightbox').classList.add('open');
     }
 
@@ -1249,7 +1135,6 @@ If you're reading this, hi. You found the yap section. Congrats.</div>
       if (e.key === 'Escape') {
         closeLightbox();
         closeLogin();
-        closeEditLink();
       }
     });
   </script>
