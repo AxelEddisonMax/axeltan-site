@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const ADMIN_PASS = 'axelfox2024';
+const ADMIN_PASS = 'AxelTan2008!';
 
 const DEFAULT_DATA = {
   links: {
